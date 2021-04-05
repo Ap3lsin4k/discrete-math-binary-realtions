@@ -53,6 +53,3 @@ def exitwindow():
         root.destroy()
 root.protocol("WM_DELETE_WINDOW", exitwindow)
 '''
-
-# Xz
-root.mainloop()

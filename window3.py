@@ -1,19 +1,53 @@
 from tkinter import *
-from tkinter import messagebox
 import random
 import copy
 
 relation_S_plus_R = []
 
 
-def name_rows_or_cols(top, cells_info, row_length=1, column_length=1):
-    for i in range(row_length):
-        for j in range(column_length):
-            lb = Label(top, text=cells_info[i + j], font='arial 14')
-            lb.grid(row=i, column=j)
+# MATRIX builder
+def name_rows_or_cols(top, cells_info, row_range, column_range):
+    for i in row_range:
+        for j in column_range:
+            lb = Label(top, text=cells_info[i + j + 1], font='arial 14')
+            lb.grid(row=i + 1, column=j + 1)
+
+
+def name_rows_and_cols(top, set_A, set_B):
+    name_rows_or_cols(top, set_A, row_range=range(len(set_A)), column_range=(-1,))
+    name_rows_or_cols(top, set_B, row_range=(-1,), column_range=range(len(set_B)))
+
+
+def build_and_show_relation(set_A, set_B, score, title):
+    top = initialize_relation_toplevel(title)
+    name_rows_and_cols(top, set_A, set_B)
+    fill_grid(score, set_A, set_B, top)
+
+
+def fill_grid(score, set_A, set_B, top):
+    calc = 0
+    for r in range(1, len(set_A) + 1):
+        for c in range(1, len(set_B) + 1):
+            lb = Label(top, text=score[calc], font='arial 14')
+            lb.grid(row=r, column=c)
+            calc += 1
+
+
+def initialize_relation_toplevel(title):
+    top = Toplevel(height=500, width=100, relief=GROOVE)
+    top.title(title)
+    lab3 = Label(top, text=title, font='arial 14')
+    lab3.grid(row=0, column=0)
+    return top
+
 
 
 def create_window_3():
+    list1 = ["Вікторія", "Світлана", "Марія", "Анна", "Дарина", "Катерина", "Людмила", "Зоя", "Аліна", "Олена", "Юлія",
+             "Лариса", "Анастасія", "Антоніна", "Оксана", "Галина", "Тетяна", "Василина", "Валентина", "Інна"]
+    # list2 = ["Андрій", "Петро", "Ігор", "Віктор", "Антон", "Євген", "Дмитро", "Вадим", "Олександр", "Віталій",
+    # "Богдан", "Павел", "Сергій", "Микола", "Володимир", "Юрій", "Олег", "Михайло", "Семен", "Чіпка"]
+
     # Create Toplevel for window 2
     window3 = Toplevel()
     window3.title("Window 3")
@@ -21,11 +55,6 @@ def create_window_3():
    window2.maxsize(width=475,height=290)
    window2.minsize(width=475,height=290)
     '''
-
-    list1 = ["Вікторія", "Світлана", "Марія", "Анна", "Дарина", "Катерина", "Людмила", "Зоя", "Аліна", "Олена", "Юлія",
-             "Лариса", "Анастасія", "Антоніна", "Оксана", "Галина", "Тетяна", "Василина", "Валентина", "Інна"]
-    list2 = ["Андрій", "Петро", "Ігор", "Віктор", "Антон", "Євген", "Дмитро", "Вадим", "Олександр", "Віталій", "Богдан",
-             "Павел", "Сергій", "Микола", "Володимир", "Юрій", "Олег", "Михайло", "Семен", "Чіпка"]
 
     # Labels
     lab1 = Label(window3, text='Set A', font='arial 20')
@@ -44,36 +73,39 @@ def create_window_3():
     listbox2.grid(row=2, column=2, sticky=W + E + N + S, pady=5, padx=5)
 
     f1 = open(r"Set A.txt", "r", encoding="UTF-8")
-    set_A = f1.read().split(" ")
-    set_A = set_A[:-1]  # remove '' after split
+    right_handed_people = f1.read().split(" ")
+    right_handed_people = right_handed_people[:-1]  # remove '' after split
     f2 = open(r"Set B.txt", "r", encoding="UTF-8")
-    set_B = f2.read().split(" ")
-    set_B = set_B[:-1]
+    left_handed_people = f2.read().split(" ")
+    left_handed_people = left_handed_people[:-1]
 
     ######################################RELATION S####################################################################
-    set_B_use = copy.copy(set_B)
     relation_S = []
-    try:
-        for i in set_A:
-            if i in list1:
-                deti = random.randint(1, 3)
-                for j in range(1, deti + 1):
-                    child = random.choice(set_B_use)
-                    if child not in list1:
-                        del set_B_use[set_B_use.index(child)]
-                        printer = i, child
 
-                        relation_S.append(printer)
-                    else:
-                        continue
-            else:
-                continue
-    except Exception as e:
-        print(e)
+    def set_relations(set_B_use):
+        try:
+            for right_handed in right_handed_people:
+                if right_handed in list1:
+                    deti = random.randint(1, 3)
+                    for j in range(1, deti + 1):
+                        child = random.choice(set_B_use)
+                        if child not in list1:
+                            del set_B_use[set_B_use.index(child)]
+                            printer = right_handed, child
+
+                            relation_S.append(printer)
+                        else:
+                            continue
+                else:
+                    continue
+        except Exception as e:
+            print(e)
+
+    set_relations(copy.copy(left_handed_people))
 
     all1 = []
-    for i in set_A:
-        for j in set_B:
+    for i in right_handed_people:
+        for j in left_handed_people:
             p = i, j
             all1.append(p)
     topp = []
@@ -94,20 +126,7 @@ def create_window_3():
             f.write(str(i))
 
     def build_and_show_relation_S():
-        top = Toplevel(height=500, width=100, relief=GROOVE)
-        top.title("Relation S")
-        calc = 0
-        lab3 = Label(top, text="Relation S", font='arial 14')
-        lab3.grid(row=0, column=0)
-
-        name_rows_or_cols(top, set_A, row_length=(len(set_A)), column_length=1)
-        name_rows_or_cols(top, set_B, row_length=1, column_length=len(set_B))
-
-        for r in range(1, len(set_A) + 1):
-            for c in range(1, len(set_B) + 1):
-                lb = Label(top, text=score[calc], font='arial 14')
-                lb.grid(row=r, column=c)
-                calc += 1
+        build_and_show_relation(right_handed_people, left_handed_people, score, "Relation S")
 
     but1 = Button(window3, text="Relation S", command=build_and_show_relation_S, width=10, font=("Arial", 20))
     but1.grid(row=3, column=1, sticky=W + E + N + S, pady=5, padx=5)
@@ -116,8 +135,8 @@ def create_window_3():
     relation_R = []
     women_in_A = []
     women_in_B = []
-    set_A_use1 = copy.copy(set_A)
-    set_B_use1 = copy.copy(set_B)
+    set_A_use1 = copy.copy(right_handed_people)
+    set_B_use1 = copy.copy(left_handed_people)
 
     for i in set_A_use1:
         if i in list1:
@@ -148,8 +167,8 @@ def create_window_3():
             f.write(str(i) + " ")
 
     all2 = []
-    for i in set_A:
-        for j in set_B:
+    for i in right_handed_people:
+        for j in left_handed_people:
             p = i, j
             all2.append(p)
     score1 = []
@@ -159,25 +178,7 @@ def create_window_3():
         else:
             score1.append(0)
 
-    def build_and_show_realtion_R():
-        top = Toplevel(height=500, width=100, relief=GROOVE)
-        top.title("Relation R")
-        calc = 0
-        lab3 = Label(top, text="Relation R", font='arial 14')
-        lab3.grid(row=0, column=0)
-
-
-        name_rows_or_cols(top, set_A, row_length=len(set_A), column_length=1)
-        name_rows_or_cols(top, set_B, row_length=1, column_length=len(set_B))
-
-        for r in range(len(set_A)):
-            for c in range(len(set_B)):
-                lb = Label(top, text=score1[calc], font='arial 14')
-                lb.grid(row=r + 1, column=c + 1)
-                calc += 1
-
-    but1 = Button(window3, text="Relation R", command=build_and_show_realtion_R, width=10, font=("Arial", 20))
-    but1.grid(row=3, column=2, sticky=W + E + N + S, pady=5, padx=5)
+    make_relation_button(window3, 2, right_handed_people, left_handed_people, score, "Relation R")
 
     global relation_S_plus_R
     relation_S_plus_R = relation_S + relation_R
@@ -203,7 +204,15 @@ def create_window_3():
     s_tra = []
     s_tra = relation_S
 
-    for i in set_A:
+    for i in right_handed_people:
         listbox1.insert(END, i)
-    for i in set_B:
+    for i in left_handed_people:
         listbox2.insert(END, i)
+
+
+def make_relation_button(window3, button_index, right_handed_people, left_handed_people, score, title):
+    def build_and_show_relation_R():
+        build_and_show_relation(right_handed_people, left_handed_people, score, title)
+
+    but1 = Button(window3, text=title, command=build_and_show_relation_R, width=10, font=("Arial", 20))
+    but1.grid(row=3, column=button_index, sticky=W + E + N + S, pady=5, padx=5)
