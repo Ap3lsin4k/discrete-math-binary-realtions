@@ -48,88 +48,26 @@ def create_window_3():
     # list2 = ["Андрій", "Петро", "Ігор", "Віктор", "Антон", "Євген", "Дмитро", "Вадим", "Олександр", "Віталій",
     # "Богдан", "Павел", "Сергій", "Микола", "Володимир", "Юрій", "Олег", "Михайло", "Семен", "Чіпка"]
 
-    # Create Toplevel for window 2
-    window3 = Toplevel()
-    window3.title("Window 3")
-    '''
-   window2.maxsize(width=475,height=290)
-   window2.minsize(width=475,height=290)
-    '''
-
-    # Labels
-    lab1 = Label(window3, text='Set A', font='arial 20')
-    lab2 = Label(window3, text='Set B', font='arial 20')
-
-    # Listbox
-    listbox1 = Listbox(window3, height=5, width=15, font=("Arial", 16), selectmode=EXTENDED)
-    listbox2 = Listbox(window3, height=5, width=15, font=("Arial", 16), selectmode=EXTENDED)
-
-    # Labels
-    lab1.grid(row=1, column=1, sticky=W + E + N + S, pady=5, padx=5)
-    lab2.grid(row=1, column=2, sticky=W + E + N + S, pady=5, padx=5)
-
-    # Listbox
-    listbox1.grid(row=2, column=1, sticky=W + E + N + S, pady=5, padx=5)
-    listbox2.grid(row=2, column=2, sticky=W + E + N + S, pady=5, padx=5)
-
-    f1 = open(r"Set A.txt", "r", encoding="UTF-8")
-    right_handed_people = f1.read().split(" ")
-    right_handed_people = right_handed_people[:-1]  # remove '' after split
-    f2 = open(r"Set B.txt", "r", encoding="UTF-8")
-    left_handed_people = f2.read().split(" ")
-    left_handed_people = left_handed_people[:-1]
+    listbox1, listbox2, window3 = initialize_ui()
+    left_handed_people, right_handed_people = load_saved_sets()
 
     ######################################RELATION S####################################################################
-    relation_S = []
 
-    def set_relations(set_B_use):
-        try:
-            for right_handed in right_handed_people:
-                if right_handed in list1:
-                    deti = random.randint(1, 3)
-                    for j in range(1, deti + 1):
-                        child = random.choice(set_B_use)
-                        if child not in list1:
-                            del set_B_use[set_B_use.index(child)]
-                            printer = right_handed, child
+    relation_S = set_realtions_set_b_use(copy.copy(left_handed_people), right_handed_people, list1)
 
-                            relation_S.append(printer)
-                        else:
-                            continue
-                else:
-                    continue
-        except Exception as e:
-            print(e)
+    get_husband_old_top(relation_S)
 
-    set_relations(copy.copy(left_handed_people))
-
-    all1 = []
-    for i in right_handed_people:
-        for j in left_handed_people:
-            p = i, j
-            all1.append(p)
-    topp = []
-    for i in relation_S:
-        topp.append(i[0])
     leftt = []
     for j in relation_S:
         leftt.append(j[1])
-    score = []
-    for i in all1:
-        if i in relation_S:
-            score.append(1)
-        else:
-            score.append(0)
+
+    score = get_score(right_handed_people, relation_S, left_handed_people)
 
     with open(r"Relation S.txt", "w", encoding="UTF-8") as f:
         for i in relation_S:
             f.write(str(i))
 
-    def build_and_show_relation_S():
-        build_and_show_relation(right_handed_people, left_handed_people, score, "Relation S")
-
-    but1 = Button(window3, text="Relation S", command=build_and_show_relation_S, width=10, font=("Arial", 20))
-    but1.grid(row=3, column=1, sticky=W + E + N + S, pady=5, padx=5)
+    make_relation_button(window3, 1, right_handed_people, left_handed_people, score, "Relation S")
 
     ######################################RELATION R####################################################################
     relation_R = []
@@ -166,11 +104,7 @@ def create_window_3():
         for i in relation_R:
             f.write(str(i) + " ")
 
-    all2 = []
-    for i in right_handed_people:
-        for j in left_handed_people:
-            p = i, j
-            all2.append(p)
+    all2 = get_all_possible_relations(left_handed_people, right_handed_people)
     score1 = []
     for i in all2:
         if i in relation_R:
@@ -196,7 +130,7 @@ def create_window_3():
 
     global relation_U_diff_R
     relation_U_diff_R = []
-    for i in all1:
+    for i in get_all_possible_relations(right_handed_people, left_handed_people):
         if i not in relation_R:
             relation_U_diff_R.append(i)
 
@@ -208,6 +142,89 @@ def create_window_3():
         listbox1.insert(END, i)
     for i in left_handed_people:
         listbox2.insert(END, i)
+
+
+def get_husband_old_top(relation_S):
+    topp = []
+    for i in relation_S:
+        topp.append(i[0])
+
+
+def get_score(right_handed_people, relation_S, left_handed_people):
+    score = []
+    all1 = get_all_possible_relations(right_handed_people, left_handed_people)
+    for i in all1:
+        if i in relation_S:
+            score.append(1)
+        else:
+            score.append(0)
+    return score
+
+
+def get_all_possible_relations(right_handed_people, left_handed_people):
+    all1 = []
+    for i in right_handed_people:
+        for j in left_handed_people:
+            p = i, j
+            all1.append(p)
+    return all1
+
+
+def set_realtions_set_b_use(set_B_use, right_handed_people, list1):
+    relation_S = []
+    def set_relations():
+        try:
+            for right_handed in right_handed_people:
+                if right_handed in list1:
+                    deti = random.randint(1, 3)
+                    for j in range(1, deti + 1):
+                        child = random.choice(set_B_use)
+                        if child not in list1:
+                            del set_B_use[set_B_use.index(child)]
+                            printer = right_handed, child
+
+                            relation_S.append(printer)
+                        else:
+                            continue
+                else:
+                    continue
+        except Exception as e:
+            print(e)
+
+    return relation_S
+
+
+def load_saved_sets():
+    f1 = open(r"Set A.txt", "r", encoding="UTF-8")
+    right_handed_people = f1.read().split(" ")
+    right_handed_people = right_handed_people[:-1]  # remove '' after split
+    f2 = open(r"Set B.txt", "r", encoding="UTF-8")
+    left_handed_people = f2.read().split(" ")
+    left_handed_people = left_handed_people[:-1]
+    return left_handed_people, right_handed_people
+
+
+def initialize_ui():
+    # Create Toplevel for window 2
+    window3 = Toplevel()
+    window3.title("Window 3")
+    '''
+       window2.maxsize(width=475,height=290)
+       window2.minsize(width=475,height=290)
+        '''
+    # Labels
+    lab1 = Label(window3, text='Set A', font='arial 20')
+    lab2 = Label(window3, text='Set B', font='arial 20')
+    # Listbox
+    listbox1 = Listbox(window3, height=5, width=15, font=("Arial", 16), selectmode=EXTENDED)
+    listbox2 = Listbox(window3, height=5, width=15, font=("Arial", 16), selectmode=EXTENDED)
+    # Labels
+    lab1.grid(row=1, column=1, sticky=W + E + N + S, pady=5, padx=5)
+    lab2.grid(row=1, column=2, sticky=W + E + N + S, pady=5, padx=5)
+    # Listbox
+    listbox1.grid(row=2, column=1, sticky=W + E + N + S, pady=5, padx=5)
+    listbox2.grid(row=2, column=2, sticky=W + E + N + S, pady=5, padx=5)
+    return listbox1, listbox2, window3
 
 
 def make_relation_button(window3, button_index, right_handed_people, left_handed_people, score, title):
