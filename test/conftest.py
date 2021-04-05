@@ -12,6 +12,18 @@ def righhanders():
 def male():
     return Person("male")
 
+@pytest.fixture
+def male1():
+    return Person("male")
+
+@pytest.fixture
+def male2():
+    return Person("male")
+
+@pytest.fixture
+def male3():
+    return Person("male")
+
 
 @pytest.fixture
 def female():
@@ -19,7 +31,16 @@ def female():
 
 
 @pytest.fixture
+def female1():
+    return Person("female")
+
+@pytest.fixture
 def female2():
+    return Person("female")
+
+
+@pytest.fixture
+def female3():
     return Person("female")
 
 

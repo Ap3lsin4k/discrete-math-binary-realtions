@@ -13,6 +13,7 @@ class Person:
 
     def __init__(self, sex="female"):
         self.sex = sex
+        self.bachelor = True
 
     def do_job_based_on_sex(self, job_for_males, job_for_females):
         if self.sex == "male":
@@ -22,32 +23,40 @@ class Person:
         else:
             raise ValueError("Check the spelling for sex property.")
 
+    # one to many
     def can_be_father_in_law_of(father_in_law, son_in_law):
         return father_in_law.sex == "male" and son_in_law.sex == "male" \
                and father_in_law is not son_in_law
 
+    # one to one
     def can_be_husband_of(husband, wife):
-        return husband.sex == "male" and wife.sex == "female"
+        return husband.sex == "male" and wife.sex == "female" \
+                and husband.bachelor and wife.bachelor
 
+    def generate_father_in_law_relation(self, other, out_relation):
+        if self.can_be_father_in_law_of(other):
+            out_relation.add((self, other))
 
-# noinspection PyDefaultArgument
-def generate_father_in_law_relations(right_handed_pers, left_handed_pers, R_relations=set()):
-    if right_handed_pers.can_be_father_in_law_of(left_handed_pers):
-        R_relations.add((right_handed_pers, left_handed_pers))
-    return R_relations
-
-
-def generate_relation(a, relation_rule, b, accumulative_relations=set()):
-    if a.relation_rule(b):
-        accumulative_relations.add((a, b))
-    return accumulative_relations
+    def generate_husband_relation(self, possible_wife, out_relation):
+        if self.can_be_husband_of(possible_wife):
+            out_relation.add((self, possible_wife))
+            self.bachelor = False
+            possible_wife.bachelor = False
 
 
 def generate_father_in_law_relations_from_sets(righthanders, lefthanders):
-    right_handed_pers = righthanders.pop()
-    left_handed_pers = lefthanders.pop()
-    # noinspection PyPep8Naming
     R_relations = set()
-    if right_handed_pers.can_be_father_in_law_of(left_handed_pers):
-        R_relations.add((right_handed_pers, left_handed_pers))
+    for right_handed in righthanders:
+        for left_handed in lefthanders:
+            right_handed.generate_father_in_law_relation(left_handed, R_relations)
+
+    return R_relations
+
+
+def generate_husband_relations_from_sets(righthanders, lefthanders):
+    R_relations = set()
+    for right_handed in righthanders:
+        for left_handed in lefthanders:
+            right_handed.generate_husband_relation(left_handed, R_relations)
+
     return R_relations
