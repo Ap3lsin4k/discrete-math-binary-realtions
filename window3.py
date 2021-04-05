@@ -54,13 +54,6 @@ def create_window_3():
     ######################################RELATION S####################################################################
 
     relation_S = set_realtions_set_b_use(copy.copy(left_handed_people), right_handed_people, list1)
-
-    get_husband_old_top(relation_S)
-
-    leftt = []
-    for j in relation_S:
-        leftt.append(j[1])
-
     score = get_score(right_handed_people, relation_S, left_handed_people)
 
     with open(r"Relation S.txt", "w", encoding="UTF-8") as f:
@@ -142,13 +135,6 @@ def create_window_3():
         listbox1.insert(END, i)
     for i in left_handed_people:
         listbox2.insert(END, i)
-
-
-def get_husband_old_top(relation_S):
-    topp = []
-    for i in relation_S:
-        topp.append(i[0])
-
 
 def get_score(right_handed_people, relation_S, left_handed_people):
     score = []
