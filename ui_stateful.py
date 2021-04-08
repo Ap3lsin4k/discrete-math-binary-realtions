@@ -23,8 +23,9 @@ class UI:
         self.sons_in_law_indexes_on_grid = []
 
         self.presenter = Presenter(left_handed_names, set_B_names)
-        self.us = UserStory(binary_relation_generator, cast_to_persons(set_B_names),
-                            cast_to_persons(left_handed_names))
+        self.us = UserStory(relation_generator=binary_relation_generator,
+                            one_set=cast_to_persons(left_handed_names),
+                            another_set=cast_to_persons(set_B_names))
         self.us.generate_relations()
 
     def initialize_and_save_father_in_law_of_relation(self, left_handed_people, set_B_people, window3):

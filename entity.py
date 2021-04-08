@@ -24,7 +24,7 @@ class Person:
     # one to one
     def can_be_husband_of(husband, wife):
         return husband.sex == "male" and wife.sex == "female" \
-                and husband.bachelor and wife.bachelor
+               and husband.bachelor and wife.bachelor
 
     def generate_father_in_law_relation(self, other, out_relation):
         if self.can_be_father_in_law_of(other) and not other.son_in_law:
@@ -36,3 +36,8 @@ class Person:
             out_relation.add((self, possible_wife))
             self.bachelor = False
             possible_wife.bachelor = False
+
+
+class People:
+    left_handed: set
+    right_handed: set

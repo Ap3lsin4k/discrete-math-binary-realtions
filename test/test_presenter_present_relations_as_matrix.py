@@ -42,3 +42,28 @@ def test_fill_cell_values():
 
     assert ui.matrix[1][-1] == "0"
     assert len(ui.matrix[0]) == len(ui.matrix[1])
+    assert ui.matrix == None
+
+
+
+def test_fill_cell_values_small_data():
+    left_handed_names = ['Катерина', 'Адам', 'Щек']
+    set_B_names = ['Олександр', 'Віталій', 'Богдан', "Аліна"]
+    presenter = Presenter(
+        set_A=left_handed_names,
+        set_B=set_B_names,
+    )
+    us = UserStory(binary_relation_generator, cast_to_persons(left_handed_names),
+                   cast_to_persons(set_B_names))
+    us.generate_relations()
+    ui = UISpy()
+    presenter.fill_cell_values(ui, us.R_relations, "Relation R")
+    assert "Аліна" in ui.matrix[0]
+    assert len(set(ui.matrix[0]).difference(
+        {"Relation R", 'Олександр', 'Віталій', 'Богдан', "Аліна"})) == 0
+    assert len(ui.matrix[0]) == 5
+    assert len(ui.matrix[1]) == 5
+    assert len(ui.matrix[2]) == 5
+    assert len(ui.matrix[3]) == 5
+    assert len(ui.matrix) == 4
+    assert ui.matrix == None
