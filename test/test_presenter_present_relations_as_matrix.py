@@ -4,6 +4,7 @@
 # self.us.R_relations
 import binary_relation_generator
 from controller import cast_to_persons
+from entity_two_groups import TwoGroups
 from presenter import Presenter
 from user_story_stateful import UserStory
 
@@ -19,13 +20,13 @@ def test_fill_cell_values():
     set_B_names = ['Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
                    'Аліна']
     presenter = Presenter(
-        set_A=['Катерина', 'Адам', 'Щек', 'Ігор', 'Віктор', 'Гліб', 'Данило', 'Євген', 'Дмитро', 'Вадим',
+        TwoGroups(['Катерина', 'Адам', 'Щек', 'Ігор', 'Віктор', 'Гліб', 'Данило', 'Євген', 'Дмитро', 'Вадим',
                'Олег', 'Михайло', 'Людмила'],
-        set_B=['Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
-               'Аліна'],
+        ['Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
+               'Аліна'])
     )
-    us = UserStory(binary_relation_generator, cast_to_persons(left_handed_names),
-                   cast_to_persons(set_B_names))
+    us = UserStory(binary_relation_generator, TwoGroups(left_handed_names,
+                   set_B_names).cast_to_persons())
     us.generate_relations()
     ui = UISpy()
     presenter.fill_cell_values(ui, us.R_relations, None)
@@ -49,11 +50,11 @@ def test_fill_cell_values_small_data():
     left_handed_names = ['Катерина', 'Адам', 'Щек']
     set_B_names = ['Олександр', 'Віталій', 'Богдан', "Аліна"]
     presenter = Presenter(
-        set_A=left_handed_names,
-        set_B=set_B_names,
+        TwoGroups(left_handed_names,
+        set_B_names)
     )
-    us = UserStory(binary_relation_generator, cast_to_persons(left_handed_names),
-                   cast_to_persons(set_B_names))
+    us = UserStory(binary_relation_generator, TwoGroups(left_handed_names,
+                   set_B_names).cast_to_persons())
     us.generate_relations()
     ui = UISpy()
     presenter.fill_cell_values(ui, us.R_relations, "Relation R")

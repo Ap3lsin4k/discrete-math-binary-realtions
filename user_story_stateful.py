@@ -1,9 +1,9 @@
 class UserStory:
-    def __init__(self, relation_generator, one_set, another_set):
+    def __init__(self, relation_generator, people):
         self.S_relations = None
         self.R_relations = None
-        self.one_set = one_set
-        self.another_set = another_set
+        self.one_set = people.A
+        self.another_set = people.B
         self.relation_generator = relation_generator
 
     def generate_relations(self):

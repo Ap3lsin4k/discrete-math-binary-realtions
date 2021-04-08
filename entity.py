@@ -38,6 +38,3 @@ class Person:
             possible_wife.bachelor = False
 
 
-class People:
-    left_handed: set
-    right_handed: set

@@ -25,17 +25,17 @@ matrix = [["Relation S", "Олександр", "Віталій", "Богдан",
 def create_window_3():
 
     listbox1, listbox2, window3 = initialize_ui()
-    left_handed_people, set_B_people = load_saved_sets()
+    ppl = load_saved_sets()
 
-    for i in set_B_people:
+    for i in ppl.A:
         listbox1.insert(END, i)
-    for i in left_handed_people:
+    for i in ppl.B:
         listbox2.insert(END, i)
 
-    myui = UI(left_handed_people, set_B_people)
+    myui = UI(ppl)
     myui.initialize_and_save_husband_of_relation(window3)
 
-    myui.initialize_and_save_father_in_law_of_relation(left_handed_people, set_B_people, window3)
+    myui.initialize_and_save_father_in_law_of_relation(window3)
 
 
 

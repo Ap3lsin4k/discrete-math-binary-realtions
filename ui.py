@@ -26,15 +26,9 @@ def initialize_ui():
     return listbox1, listbox2, window3
 
 
-def fill_cell(top, text, row, column):
-    lb = Label(top, text=text, font='arial 14')
-    lb.grid(row=row, column=column)
 
 
 
-def fill_grid_(fill_cell, relations):
-    for relation in relations:
-        fill_cell(relation)
 
 
 

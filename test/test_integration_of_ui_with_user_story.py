@@ -1,12 +1,13 @@
 import pytest
 
 from entity import Person
+from entity_two_groups import TwoGroups
 from presenter import convert_to_matrix
 from ui_stateful import UI
 
 
 def test_ui(male, male1, male2, male3, female, female1, female2, female3):
-    ui = UI(["Michael"], ["Mike"])
+    ui = UI(TwoGroups(["Michael"], ["Mike"]))
     assert ui.us.R_relations
     assert len(ui.us.R_relations) == 1
     assert len(ui.us.S_relations) == 0

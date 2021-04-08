@@ -1,7 +1,7 @@
 import random
 
 
-def business_logic_generate_relation(left_handed_women, set_B_women):
+def deprecated_business_logic_generate_relation(left_handed_women, set_B_women):
     relation_R = []
     num_of_relations = min(len(set_B_women), len(left_handed_women))
     for i in range(num_of_relations):

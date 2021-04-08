@@ -66,9 +66,9 @@ def cast_to_names(set_of_persons):
 
 
 class Presenter(object):
-    def __init__(self, set_A, set_B):
-        self.left_handed_names = set_A
-        self.set_B_names = set_B
+    def __init__(self, people):
+        self.left_handed_names = people.A
+        self.set_B_names = people.B
 
     def fill_cell_values(self, ui, relations, relation_table_name):
         matrix = convert_to_matrix(relations, table_name=relation_table_name)
