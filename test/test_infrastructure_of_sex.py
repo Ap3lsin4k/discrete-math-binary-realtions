@@ -1,4 +1,4 @@
-from binary_relation_generator import Person
+from entity import Person
 
 
 def dummy_job():

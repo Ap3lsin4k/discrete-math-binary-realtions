@@ -1,6 +1,6 @@
 import pytest
 
-from binary_relation_generator import Person
+from entity import Person
 
 
 @pytest.fixture
@@ -10,38 +10,38 @@ def righhanders():
 
 @pytest.fixture
 def male():
-    return Person("male")
+    return Person("male", "Male")
 
 @pytest.fixture
 def male1():
-    return Person("male")
+    return Person("male", "Male1")
 
 @pytest.fixture
 def male2():
-    return Person("male")
+    return Person("male", "Male2")
 
 @pytest.fixture
 def male3():
-    return Person("male")
+    return Person("male", "Male3")
 
 
 @pytest.fixture
 def female():
-    return Person("female")
+    return Person("female", "Female")
 
 
 @pytest.fixture
 def female1():
-    return Person("female")
+    return Person("female", "Female1")
 
 @pytest.fixture
 def female2():
-    return Person("female")
+    return Person("female", "Female2")
 
 
 @pytest.fixture
 def female3():
-    return Person("female")
+    return Person("female", "Female3")
 
 
 @pytest.fixture

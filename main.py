@@ -16,7 +16,7 @@ M="ІВ"
 print("Моя група: ", M+"-",G)
 print("Мій номер у групі:",N)
 if M=="ІО": NN +=1
-print("Мій варіант:",)
+print("Мій варіант: 23",)
 number = (NN+G%60)%30+1
 task = "Personal task number - " + str(number)
 
@@ -28,7 +28,7 @@ task = "Personal task number - " + str(number)
 lab1 = Label(root, text='Created by Андрій Федорко', font='arial 20')
 lab2 = Label(root, text='Group number - IO - 04', font='arial 20')
 lab3 = Label(root, text='My number in group - 23', font='arial 20')
-lab4 = Label(root, text="Мій варіант:"+str((NN+G%60)%30+1), font='arial 20')
+lab4 = Label(root, text="Мій варіант: " +str(29), font='arial 20')
 
 
 # Info about student
