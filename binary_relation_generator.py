@@ -15,16 +15,16 @@ def generate_father_in_law_relations_from_sets(righthanders, lefthanders):
     R_relations = set()
 
     for left_handed in lefthanders:
-        right_handed = random.choice(list(righthanders))
-        right_handed.generate_father_in_law_relation(left_handed, R_relations)
+        set_B = random.choice(list(righthanders))
+        set_B.generate_father_in_law_relation(left_handed, R_relations)
 
     return R_relations
 
 
 def generate_husband_relations_from_sets(righthanders, lefthanders):
     R_relations = set()
-    for right_handed in righthanders:
+    for set_B in righthanders:
         for left_handed in lefthanders:
-            right_handed.generate_husband_relation(left_handed, R_relations)
+            set_B.generate_husband_relation(left_handed, R_relations)
 
     return R_relations

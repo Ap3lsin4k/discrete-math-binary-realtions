@@ -35,9 +35,6 @@ def convert_to_matrix(relations, table_name="Relation"):
             matrix[domain_id][codomain_id] = "1"
         except IndexError:
             print("Index Error", relation[0].id+1, relation[1].id+1, relation)
-
-
-
     return matrix
 
 
@@ -72,17 +69,22 @@ def cast_to_names(set_of_persons):
 
 
 class Presenter(object):
-    def __init__(self, left_handed_names, right_handed_names):
-        self.right_handed_names = right_handed_names
-        self.left_handed_names = left_handed_names
+    def __init__(self, set_A, set_B):
+        self.set_B_names = set_B
+        self.left_handed_names = set_A
 
     def fill_cell_values(self, ui, relations, relation_table_name):
         matrix = convert_to_matrix(relations, table_name=relation_table_name)
-        codomain_no_connection = find_names_of_people_with_no_relation(self.right_handed_names, relations)
-        matrix[0].append(codomain_no_connection)
+        codomain_no_connection = find_names_of_people_with_no_relation(self.set_B_names, relations)
+        matrix[0] += codomain_no_connection
 
         domain_no_connection = find_names_of_people_with_no_relation(self.left_handed_names, relations)
-        for person in domain_no_connection:
-            matrix.append(person)
+        for i in range(len(domain_no_connection)):
+            name = domain_no_connection[i]
+            matrix.append([name]+list("0" for _ in range(1, len(matrix[len(matrix)-1]))))
+
+        #normalization
+        for i in range(1, len(matrix)):
+            matrix[i] += list("0" for _ in range(len(matrix[0])-len(matrix[i])))
 
         ui.show_values_in_grid(matrix)
