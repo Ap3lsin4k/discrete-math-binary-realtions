@@ -1,1 +1,1 @@
-('Катерина', 'Богдан')('Людмила', 'Юрій')
+(<entity.Person object at 0x0000018EB0A1F850>, <entity.Person object at 0x0000018EB0B84EB0>)(<entity.Person object at 0x0000018EB0B84E20>, <entity.Person object at 0x0000018EB0B84880>)

@@ -10,13 +10,6 @@ def test_ui(male, male1, male2, male3, female, female1, female2, female3):
     assert ui.us.R_relations
     assert len(ui.us.R_relations) == 1
     assert len(ui.us.S_relations) == 0
-    assert ui.get_domain_index(male) == 1
-    assert ui.get_domain_index(male1) == 2
-    assert ui.get_domain_index(male3) == 3
-    assert ui.get_domain_index(female1) == 4
-    with pytest.raises(ValueError):
-        ui.get_domain_index(None)
-    assert ui.fathers_in_law_indexes_on_grid == [male.name, male1.name, male3.name, female1.name]
 
 
 def test_convert_relation_to_matrix(male, female, male1, male2, female2):

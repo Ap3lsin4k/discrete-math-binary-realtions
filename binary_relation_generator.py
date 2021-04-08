@@ -11,20 +11,20 @@ def _():
     print("Мій варіант:", (N + G % 60) % 30 + 1)
 
 
-def generate_father_in_law_relations_from_sets(righthanders, lefthanders):
+def generate_father_in_law_relations_from_sets(set_A, set_B):
     R_relations = set()
 
-    for left_handed in lefthanders:
-        right_handed = random.choice(list(righthanders))
-        right_handed.generate_father_in_law_relation(left_handed, R_relations)
+    for right_handed in set_B:
+        left_handed = random.choice(list(set_A))
+        left_handed.generate_father_in_law_relation(right_handed, R_relations)
 
     return R_relations
 
 
 def generate_husband_relations_from_sets(righthanders, lefthanders):
     R_relations = set()
-    for right_handed in righthanders:
+    for a in righthanders:
         for left_handed in lefthanders:
-            right_handed.generate_husband_relation(left_handed, R_relations)
+            a.generate_husband_relation(left_handed, R_relations)
 
     return R_relations

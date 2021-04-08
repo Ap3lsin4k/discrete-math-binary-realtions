@@ -52,7 +52,7 @@ def dummy():
 
 
 @pytest.fixture
-def right_handed(male):
+def set_B(male):
     return male
 
 @pytest.fixture

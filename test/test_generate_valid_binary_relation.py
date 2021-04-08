@@ -1,11 +1,11 @@
 from binary_relation_generator import *
 
 
-def test_generated_relation_is_valid_and_test_clojure(right_handed, left_handed):
+def test_generated_relation_is_valid_and_test_clojure(set_B, left_handed):
 #    S = husband_of = {(male, female), ("Petro", "Nadia")}
 #    R = father_in_law_of = {("")}
     valid_relations = set()
-    right_handed.generate_father_in_law_relation(left_handed, valid_relations)
+    set_B.generate_father_in_law_relation(left_handed, valid_relations)
 
     assert len(valid_relations) == 1
     binary_relation = valid_relations.pop()
