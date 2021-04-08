@@ -30,7 +30,12 @@ def create_window_3():
 
     relation_R = myui.initialize_and_save_father_in_law_of_relation(left_handed_people, right_handed_people, score, window3)
 
-    compute_and_set_operations_on_relations(left_handed_people, listbox1, listbox2, relation_R, relation_S,
-                                            right_handed_people)
+#    compute_and_set_operations_on_relations(left_handed_people, listbox1, listbox2, relation_R, relation_S,
+ #                                           right_handed_people)
+    from tkinter import END
 
+    for i in right_handed_people:
+        listbox1.insert(END, i)
+    for i in left_handed_people:
+        listbox2.insert(END, i)
 
