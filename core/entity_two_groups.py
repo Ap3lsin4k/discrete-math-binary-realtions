@@ -31,7 +31,7 @@ class TwoGroups:
         return self
 
 
-class TwoGroupsOfPersons:
+class TwoGroupsAndTwoRelations:
     husband_of_relation: set
     father_in_law_of_relation: set
 
@@ -40,6 +40,8 @@ class TwoGroupsOfPersons:
         self.B_persons = B_persons
         self.husband_of_relation = S
         self.father_in_law_of_relation = R
+        self.A_names = [x.name for x in self.A_persons]
+        self.B_names = [x.name for x in self.B_persons]
 
     def R_complement(self):
         U = bin_relation.generate_all_possible_relations(self.A_persons, self.B_persons)

@@ -24,19 +24,16 @@ def test_fill_cell_values():
                    'Аліна']
     ui = UISpy()
 
-    presenter = Presenter(TwoGroups(['Катерина', 'Адам', 'Щек', 'Ігор', 'Віктор', 'Гліб', 'Данило', 'Євген', 'Дмитро', 'Вадим',
-                   'Олег', 'Михайло', 'Людмила'],
-                  ['Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
-                   'Аліна']),
-        ui)
+    presenter = Presenter(ui)
     us = UserStory(binary_relation_generator, TwoGroups(left_handed_names,
                                                         set_B_names).cast_to_persons(), presenter=None)
     us.generate_relations()
-    presenter.fill_cell_values(us.R_relations, "Relation")
+    presenter.fill_cell_values(us.R_relations, TwoGroups(left_handed_names,
+                                                        set_B_names), "Relation")
 
     assert set(ui.matrix[0][1:]).difference(
         {'Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
-         'Аліна'}) == set()
+                   'Аліна'}) == set()
     assert len(set(ui.matrix[0][1:]).difference(
         {'Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
          'Аліна'})) == 0
@@ -54,12 +51,12 @@ def test_fill_cell_values_small_data():
     set_B_names = ['Олександр', 'Віталій', 'Богдан', "Аліна"]
     ui = UISpy()
 
-    presenter = Presenter(TwoGroups(left_handed_names,
-                                    set_B_names), ui)
+    presenter = Presenter(ui)
     us = UserStory(binary_relation_generator, TwoGroups(left_handed_names,
                                                         set_B_names).cast_to_persons(), presenter=None)
     us.generate_relations()
-    presenter.fill_cell_values(us.R_relations, "Relation R")
+    presenter.fill_cell_values(us.R_relations, TwoGroups(left_handed_names, set_B_names),
+                               "Relation R")
     assert "Аліна" in ui.matrix[0]
     assert len(set(ui.matrix[0]).difference(
         {"Relation R", 'Олександр', 'Віталій', 'Богдан', "Аліна"})) == 0

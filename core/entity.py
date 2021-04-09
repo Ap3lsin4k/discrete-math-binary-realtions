@@ -1,10 +1,11 @@
 class Person:
     sex: str
+    name: str
 
     def __init__(self, sex="female", name="No name"):
         self.sex = sex
-        self.bachelor = True
         self.name = name
+        self.bachelor = True
         self.id = -1
         self.son_in_law = False
 

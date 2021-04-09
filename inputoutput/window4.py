@@ -12,7 +12,7 @@ def create_window_4():
 
    ui = WindowWithComplexRelations(presenter=None,
                                    user_story=None)
-   presenter = ComplexPresenter(groups.cast_to_names(), ui)
+   presenter = ComplexPresenter(ui)
    us = ComplexUserStory(binary_relation_generator, groups, presenter=presenter)
 
    ui.initialize_window4()
