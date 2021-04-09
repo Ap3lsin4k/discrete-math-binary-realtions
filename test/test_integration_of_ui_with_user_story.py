@@ -1,9 +1,9 @@
 import pytest
 
-from entity import Person
-from entity_two_groups import TwoGroups
-from presenter import convert_to_matrix
-from ui_stateful import UI
+from core.entity import Person
+from core.entity_two_groups import TwoGroups
+from presentation.presenter import convert_to_matrix
+from inputoutput.ui_window3 import UI
 
 
 def test_ui(male, male1, male2, male3, female, female1, female2, female3):

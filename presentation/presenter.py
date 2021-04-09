@@ -1,6 +1,6 @@
 import copy
 
-from entity import Person
+from core.entity import Person
 
 
 def convert_to_matrix(relations, table_name="Relation"):
@@ -67,8 +67,8 @@ def cast_to_names(set_of_persons):
 
 class Presenter(object):
     def __init__(self, people):
-        self.left_handed_names = people.A
-        self.set_B_names = people.B
+        self.left_handed_names = people.A_names
+        self.set_B_names = people.B_names
 
     def fill_cell_values(self, ui, relations, relation_table_name):
         matrix = convert_to_matrix(relations, table_name=relation_table_name)

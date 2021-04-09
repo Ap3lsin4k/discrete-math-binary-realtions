@@ -1,5 +1,5 @@
-import controller
-from entity import Person
+from presentation import controller
+from core.entity import Person
 
 
 def test_str_to_person():

@@ -1,4 +1,4 @@
-from entity_two_groups import TwoGroups
+from core.entity_two_groups import TwoGroups
 
 
 def load_saved_sets():

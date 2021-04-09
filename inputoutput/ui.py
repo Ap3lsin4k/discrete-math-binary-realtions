@@ -1,6 +1,5 @@
 from tkinter import Toplevel, Label, Listbox, EXTENDED, W, E, N, S, Button, GROOVE
 
-from ui_stateful import UI
 
 
 def initialize_ui():

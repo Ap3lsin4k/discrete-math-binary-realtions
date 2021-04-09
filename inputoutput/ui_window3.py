@@ -1,13 +1,11 @@
-import copy
+import pickle
 from tkinter import Toplevel, Label, W, E, N, S, Button, GROOVE
 
-import binary_relation_generator
-from business_logic import get_intersection, deprecated_business_logic_generate_relation, set_realtions_set_b_use, \
-    get_score
-from controller import cast_to_persons
-from presenter import index_person_advanced, Presenter
-from repository import save_relation_to_file
-from user_story_stateful import UserStory
+from core import binary_relation_generator
+from core.entity_two_groups import TwoGroupsOfPersons
+from presentation.presenter import Presenter
+from inputoutput.repository import save_relation_to_file
+from core.user_story import UserStory
 
 
 def initialize_toplevel(title):
@@ -32,9 +30,14 @@ class UI:
         self.us = UserStory(relation_generator=binary_relation_generator,
                             people=people_names.cast_to_persons())
         self.us.generate_relations()
+        all_people = TwoGroupsOfPersons(self.us.one_set, self.us.another_set, self.us.S_relations, self.us.R_relations)
+        pickle.dump(all_people, open("../TwoGroups.pickle", "wb"))
 
     def initialize_and_save_father_in_law_of_relation(self, window3):
         self.initialize_relation(window3, 2, "Relation R", "father-in-law relation (Тесть)", self.us.R_relations)
+
+    def initialize_and_save_husband_of_relation(self, window3):
+        self.initialize_relation(window3, 1, "Relation S", "husband of relation (Чоловік)", self.us.S_relations)
 
     def initialize_relation(self, ui_root, button_index, short_title, long_title, relation):
         save_relation_to_file(short_title, relation)
@@ -42,10 +45,7 @@ class UI:
         def build_and_show_relation():
             self.__build_and_show_relation(long_title, relation, short_title)
 
-        make_relation_button(ui_root, button_index, "Relation S", build_and_show_relation)
-
-    def initialize_and_save_husband_of_relation(self, window3):
-        self.initialize_relation(window3, 1, "Relation S", "husband of relation (Чоловік)", self.us.S_relations)
+        make_relation_button(ui_root, button_index, short_title, build_and_show_relation)
 
     def __build_and_show_relation(self, title, relations, relation_table_name):
         self.top = initialize_toplevel(title)

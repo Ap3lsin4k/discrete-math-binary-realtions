@@ -1,6 +1,6 @@
 import pytest
 
-from entity import Person
+from core.entity import Person
 
 
 @pytest.fixture

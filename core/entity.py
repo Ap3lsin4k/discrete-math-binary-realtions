@@ -37,4 +37,6 @@ class Person:
             self.bachelor = False
             possible_wife.bachelor = False
 
-
+    def force_generate_relation(self, other, out_relation):
+        out_relation.add((self, other))
+        return out_relation

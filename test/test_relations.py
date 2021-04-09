@@ -1,4 +1,4 @@
-from entity import Person
+from core.entity import Person
 
 
 # noinspection PyPep8Naming

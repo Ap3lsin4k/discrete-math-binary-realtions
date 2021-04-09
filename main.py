@@ -1,6 +1,5 @@
 from tkinter import *
-from tkinter import messagebox
-import window2, window3, window4
+from inputoutput import window2, window4, window3
 
 root = Tk()
 root.title("Main Window")

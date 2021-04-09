@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import copy
-import func_win_4
+import deprecated_func_win_4
 
 
 def create_window_4():
@@ -15,11 +15,11 @@ def create_window_4():
 
 
    #########################FUNCTIONS####################################
-   but1 = Button(window4, text="R ∪ S ", command=func_win_4.R_plus_S, width=10,  font=("Arial", 20))
-   but2 = Button(window4, text="R ∩ S",  command=func_win_4.R_on_S, width=10,  font=("Arial", 20))
-   but3 = Button(window4, text="R \ S",  command=func_win_4.R_diff_S, width=10,  font=("Arial", 20))
-   but4 = Button(window4, text="U \ R",  command=func_win_4.U_diff_R, width=10,  font=("Arial", 20))
-   but5 = Button(window4, text="s^(-1)", command=func_win_4.S_tra, width=10,  font=("Arial", 20))
+   but1 = Button(window4, text="R ∪ S ", command=deprecated_func_win_4.R_or_S, width=10, font=("Arial", 20))
+   but2 = Button(window4, text="R ∩ S", command=deprecated_func_win_4.R_and_S, width=10, font=("Arial", 20))
+   but3 = Button(window4, text="R \ S", command=deprecated_func_win_4.R_diff_S, width=10, font=("Arial", 20))
+   but4 = Button(window4, text="U \ R", command=deprecated_func_win_4.U_diff_R, width=10, font=("Arial", 20))
+   but5 = Button(window4, text="s^(-1)", command=deprecated_func_win_4.S_tra, width=10, font=("Arial", 20))
 
 
    but1.grid(row=0, column=0, sticky=W+E+N+S, pady=5, padx=5)
