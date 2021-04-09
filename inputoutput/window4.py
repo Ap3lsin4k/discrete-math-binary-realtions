@@ -16,8 +16,5 @@ def create_window_4():
    us = ComplexUserStory(binary_relation_generator, groups, presenter=presenter)
 
    ui.initialize_window4()
-
    us.execute()
-   controller = ui
-   controller.us = us
-
+   # TODO green ones

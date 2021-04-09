@@ -6,17 +6,17 @@ from presentation.presenter import Presenter
 class ComplexUserStory(UserStory):
 
     def union(self):
-        return self.S_relations | self.R_relations
+        return self.two_groups.father_in_law_of_relation | self.two_groups.husband_of_relation
 
     def intersection(self):
-        return self.S_relations.intersection(self.R_relations)
+        return self.two_groups.husband_of_relation.intersection(self.two_groups.father_in_law_of_relation)
 
     def difference(self):
-        self.R_relations.difference(self.S_relations)
+        return self.two_groups.father_in_law_of_relation.difference(self.two_groups.husband_of_relation)
 
     def R_complement(self):
         U = self.relation_generator.generate_all_possible_relations(self.A_persons, self.B_persons)
-        return U.difference(self.R_relations)  # \R
+        return U.difference(self.two_groups.father_in_law_of_relation)
 
     def U_diff_R(self):
         assert isinstance(self.presenter, Presenter)
@@ -34,4 +34,10 @@ class ComplexUserStory(UserStory):
         self.presenter.present_R_intersection_S_relation(self.intersection())
         self.presenter.present_R_difference_S_relation(self.difference())
         self.presenter.present_U_diff_R_relation(self.two_groups.R_complement())
-        self.presenter.present_inverse_of_S(None)
+        self.presenter.present_inverse_of_S(self.inverse_of_S()) #TODO
+
+    def inverse_of_S(self):
+        inverse_relation = set()
+        for relation in self.two_groups.husband_of_relation:
+            inverse_relation.add((relation[1], relation[0]))
+        return inverse_relation

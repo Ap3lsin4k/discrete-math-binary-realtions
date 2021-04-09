@@ -46,6 +46,6 @@ class TwoGroupsOfPersons:
         return U.difference(self.father_in_law_of_relation) #\R
 
     def cast_to_names(self):
-        self.A_names = [x for x in self.A_persons]
-        self.B_names = [x for x in self.B_persons]
+        self.A_names = [x.name for x in self.A_persons]
+        self.B_names = [x.name for x in self.B_persons]
         return self

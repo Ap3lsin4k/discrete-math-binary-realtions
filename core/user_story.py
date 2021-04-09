@@ -1,3 +1,6 @@
+from core import binary_relation_generator
+
+
 class UserStory:
     def __init__(self, relation_generator, people, presenter):
         self.S_relations = set()

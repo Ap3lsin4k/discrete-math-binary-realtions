@@ -2,8 +2,12 @@
 # ['Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя', 'Аліна']
 # self.us.generate_relations()
 # self.us.R_relations
+import pickle
+
 from core import binary_relation_generator
+from core.complex_user_story import ComplexUserStory
 from core.entity_two_groups import TwoGroups
+from presentation.complex_presenter import ComplexPresenter
 from presentation.presenter import Presenter
 from core.user_story import UserStory
 
@@ -28,7 +32,7 @@ def test_fill_cell_values():
     us = UserStory(binary_relation_generator, TwoGroups(left_handed_names,
                                                         set_B_names).cast_to_persons(), presenter=None)
     us.generate_relations()
-    presenter.fill_cell_values(ui, us.R_relations, None)
+    presenter.fill_cell_values(us.R_relations, "Relation")
 
     assert set(ui.matrix[0][1:]).difference(
         {'Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
@@ -36,7 +40,7 @@ def test_fill_cell_values():
     assert len(set(ui.matrix[0][1:]).difference(
         {'Олександр', 'Віталій', 'Богдан', 'Сергій', 'Микола', 'Володимир', 'Юрій', 'Семен', 'Зоя',
          'Аліна'})) == 0
-    assert set(i[0] for i in ui.matrix if i[0] is not None).difference(
+    assert set(i[0] for i in ui.matrix if i[0] != "Relation").difference(
         {'Катерина', 'Адам', 'Щек', 'Ігор', 'Віктор', 'Гліб', 'Данило', 'Євген', 'Дмитро', 'Вадим',
          'Олег', 'Михайло', 'Людмила'}) == set()
 
@@ -55,7 +59,7 @@ def test_fill_cell_values_small_data():
     us = UserStory(binary_relation_generator, TwoGroups(left_handed_names,
                                                         set_B_names).cast_to_persons(), presenter=None)
     us.generate_relations()
-    presenter.fill_cell_values(ui, us.R_relations, "Relation R")
+    presenter.fill_cell_values(us.R_relations, "Relation R")
     assert "Аліна" in ui.matrix[0]
     assert len(set(ui.matrix[0]).difference(
         {"Relation R", 'Олександр', 'Віталій', 'Богдан', "Аліна"})) == 0
@@ -64,3 +68,6 @@ def test_fill_cell_values_small_data():
     assert len(ui.matrix[2]) == 5
     assert len(ui.matrix[3]) == 5
     assert len(ui.matrix) == 4
+
+
+

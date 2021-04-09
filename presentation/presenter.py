@@ -71,7 +71,7 @@ class Presenter(object):
         self.set_B_names = people.B_names
         self.view = view
 
-    def fill_cell_values(self, ui, relations, relation_table_name):
+    def fill_cell_values(self, relations, relation_table_name):
         matrix = convert_to_matrix(relations, table_name=relation_table_name)
         codomain_no_connection = find_names_of_people_with_no_relation(self.set_B_names, relations)
         matrix[0] += codomain_no_connection
@@ -93,6 +93,6 @@ class Presenter(object):
     def initialize_relation(self, row, column, long_title, relations, short_title):
         def build_and_show_relation():
             self.create_new_window(long_title)
-            self.fill_cell_values(self, relations, short_title)
+            self.fill_cell_values(relations, short_title)
 
         self.view.make_button(row, column, build_and_show_relation, short_title)
