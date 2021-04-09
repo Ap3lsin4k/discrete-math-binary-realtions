@@ -89,3 +89,10 @@ class Presenter(object):
 
     def create_new_window(self, title):
         self.view.create_new_window(title)
+
+    def initialize_relation(self, row, column, long_title, relations, short_title):
+        def build_and_show_relation():
+            self.create_new_window(long_title)
+            self.fill_cell_values(self, relations, short_title)
+
+        self.view.make_button(row, column, build_and_show_relation, short_title)

@@ -45,3 +45,6 @@ class RelationsWindow:
         lb.grid(row=row, column=column)
 
     def initialize(self, names): pass
+
+    def make_button(self, row, column, build_and_show_relation, short_title):
+        make_button(self.root_relation_controller, row, column, build_and_show_relation, short_title)
