@@ -1,17 +1,24 @@
 from tkinter import Toplevel, Label, W, E, N, S, Listbox, EXTENDED, END
 
-from inputoutput.relations_window import RelationsWindow
+from inputoutput.relations_window import RelationsWindow, make_button
 
 
 class WindowWithBasicRelations(RelationsWindow):
 
     def initialize(self, names):
         self.initialize_window3(names)
+        self.presenter.initalize()
         self.initialize_and_save_husband_of_relation()
         self.initialize_and_save_father_in_law_of_relation()
 
     def initialize_and_save_father_in_law_of_relation(self):
-        self.initialize_relation(3, 2, "father-in-law relation (Тесть)", self.us.R_relations, "Relation R")
+        def build_and_show_relation():
+            self.create_new_window(title)
+            self.presenter.fill_cell_values(self, relations, relation_table_name)
+
+        make_button(self.root_relation_controller, row, column, build_and_show_relation, short_title)
+
+        self.initialize_relation()
 
     def initialize_and_save_husband_of_relation(self):
         self.initialize_relation(3, 1, "husband of relation (Чоловік)", self.us.S_relations, "Relation S")
@@ -43,3 +50,6 @@ class WindowWithBasicRelations(RelationsWindow):
             listbox2.insert(END, i)
 
         return self.root_relation_controller
+
+    def make_button(self, row, column, build_and_show_relation, short_title):
+        make_button(self.root_relation_controller, row, column, build_and_show_relation, short_title)

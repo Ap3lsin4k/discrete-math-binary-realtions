@@ -1,15 +1,12 @@
 from core.entity import Person
 
 
-women_names = ["Вікторія", "Світлана", "Марія", "Анна", "Дарина", "Катерина", "Людмила", "Зоя", "Аліна", "Олена",
-               "Юлія", "Лариса", "Анастасія", "Антоніна", "Оксана", "Галина", "Тетяна", "Василина", "Валентина", "Інна"]
 
 
-def cast_to_persons(list_of_names) -> set:
-    persons = set()
-    for name in list_of_names:
-        if name in women_names:
-            persons.add(Person("female", name))
-        else:
-            persons.add(Person("male", name))
-    return persons
+class Controller():
+    def __init__(self, us):
+        self.us = us
+    def initialize_U_diff_R(self):
+        # Controller
+        self.us.U_diff_R()
+        self.initialize_relation(1, 1, "U difference R", groups.R_complement(), "U \ R")

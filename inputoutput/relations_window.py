@@ -17,12 +17,10 @@ def make_button(window, row, column, command, title):
 class RelationsWindow:
     def __init__(self, presenter, user_story):
         super().__init__()
-        self.presenter = presenter
-        self.us = user_story
+     #   self.presenter = presenter
         #self.root = Toplevel()
 
     def initialize_relation(self, row, column, long_title, relation, short_title):
-        save_relation_to_file(short_title, relation)
 
         def build_and_show_relation():
             self.__build_and_show_relation(long_title, relation, short_title)
@@ -30,8 +28,12 @@ class RelationsWindow:
         make_button(self.root_relation_controller, row, column, build_and_show_relation, short_title)
 
     def __build_and_show_relation(self, title, relations, relation_table_name):
+        self.create_new_window(title)
+        raise Exception
+#        self.presenter.fill_cell_values(self, relations, relation_table_name)
+
+    def create_new_window(self, title):
         self.relation_top_level = initialize_toplevel(title)
-        self.presenter.fill_cell_values(self, relations, relation_table_name)
 
     def show_values_in_grid(self, matrix):
         for i in range(len(matrix)):

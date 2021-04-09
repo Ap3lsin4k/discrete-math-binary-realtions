@@ -12,5 +12,12 @@ class WindowWithComplexRelations(RelationsWindow):
         lab3.grid(row=0, column=0)
         self.root_relation_controller = top
 
+    def initialize_and_save_U_diff_R(self):
+        self.initialize_relation(1, 1, "U \ R", self.us.U_diff_R(), "U \ R")
+
+
     def initialize_U_diff_R(self):
-        self.initialize_relation(,,
+        # Controller
+        self.us.U_diff_R()
+        self.initialize_relation(1, 1, "U difference R", groups.R_complement(), "U \ R")
+

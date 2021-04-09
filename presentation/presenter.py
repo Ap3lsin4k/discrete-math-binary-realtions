@@ -1,6 +1,7 @@
 import copy
 
 from core.entity import Person
+from inputoutput.window_with_basic_relations import WindowWithBasicRelations
 
 
 def convert_to_matrix(relations, table_name="Relation"):
@@ -66,9 +67,10 @@ def cast_to_names(set_of_persons):
 
 
 class Presenter(object):
-    def __init__(self, people):
+    def __init__(self, people, view):
         self.left_handed_names = people.A_names
         self.set_B_names = people.B_names
+        self.view = view
 
     def fill_cell_values(self, ui, relations, relation_table_name):
         matrix = convert_to_matrix(relations, table_name=relation_table_name)
@@ -84,4 +86,24 @@ class Presenter(object):
         for i in range(1, len(matrix)):
             matrix[i] += list("0" for _ in range(len(matrix[0]) - len(matrix[i])))
 
-        ui.show_values_in_grid(matrix)
+        self.view.show_values_in_grid(matrix)
+
+    def create_new_window(self, title):
+        self.view.create_new_window(title)
+
+
+class BasicPresenter(Presenter):
+
+    def initialize_and_save_husband_of_relation(self, relation):
+        self.initialize_relation(3, 1, "husband of relation (Чоловік)", relation, "Relation S")
+
+    def initialize_and_save_father_in_law_of_relation(self, relation):
+        self.initialize_relation(3, 2, "father-in-law relation (Тесть)", relation, "Relation R")
+
+    def initialize_relation(self, row, column, long_title, relations, short_title):
+        def build_and_show_relation():
+            self.create_new_window(long_title)
+            self.fill_cell_values(self, relations, short_title)
+
+        assert isinstance(self.view, WindowWithBasicRelations)
+        self.view.make_button(row, column, build_and_show_relation, short_title)

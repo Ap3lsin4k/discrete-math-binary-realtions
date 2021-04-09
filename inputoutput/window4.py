@@ -4,6 +4,9 @@ from tkinter import messagebox
 import random
 import copy
 import deprecated_operations_on_binary_relations_controller
+from core import binary_relation_generator
+from core.user_story import UserStory
+from inputoutput.window_with_complex_relations import WindowWithComplexRelations
 from presentation.presenter import Presenter
 
 
@@ -17,9 +20,13 @@ def create_window_4():
 
    groups = pickle.load(open("../TwoGroups.pickle", "rb"))
 
-   presenter = Presenter(groups.cast_to_names())
-   ui = WindowWithComplexRelations(presenter=None, user_story=None)
-   presenter.fill_cell_values(ui, groups.R_complement(), "U \ R")
+   ui = WindowWithComplexRelations(presenter=None,
+                                   user_story=None)
+   presenter = Presenter(groups.cast_to_names(), ui)
+   us = UserStory(binary_relation_generator, groups, presenter=presenter)
+   controller = ui
+   controller.us = us
+
 
    ui.initialize_window4(None)
    #########################FUNCTIONS####################################
@@ -27,7 +34,9 @@ def create_window_4():
    but2 = Button(window4, text="R ∩ S", command=deprecated_operations_on_binary_relations_controller.R_and_S, width=10, font=("Arial", 20))
    but3 = Button(window4, text="R \ S", command=deprecated_operations_on_binary_relations_controller.R_diff_S, width=10, font=("Arial", 20))
 
-   make_button(window4, 1, 1, _, "U \ R")
+   controller.initialize_window4(None)
+   controller.initialize_and_save_U_diff_R()
+   #make_button(window4, 1, 1, _, "U \ R")
    but4 = Button(window4, text="U \ R", command=deprecated_operations_on_binary_relations_controller.U_diff_R, width=10, font=("Arial", 20))
    but4.grid(row=1, column=1, sticky=W+E+N+S, pady=5, padx=5)
 
