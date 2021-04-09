@@ -16,6 +16,9 @@ class UserStory:
         self.R_relations = self.relation_generator.generate_random_father_in_law_relations_from_sets(self.one_set,
                                                                                                      self.another_set)
 
+
+class ComplexUserStory(UserStory):
+
     def union(self):
         return self.S_relations | self.R_relations
 
@@ -31,31 +34,7 @@ class UserStory:
 
     def U_diff_R(self):
         assert isinstance(self.presenter, Presenter)
-        self.presenter.create_new_window("U \ R")
+        #self.presenter.create_new_window("U \ R")
         # presenter = Presenter(self.two_groups.cast_to_names(), )
         # presenter.fill_cell_values(self.two_groups.R_complement(), "U \ R")
         return self.two_groups.R_complement()
-
-    def build_and_show_relation(self, title, relations, relation_table_name):
-        self.presenter.fill_cell_values(self, relations, relation_table_name)
-
-        self.presenter.fill_cell_values(self, relations, relation_table_name)
-
-    def initialize_relation(self, row, column, long_title, relation, short_title):
-        def build_and_show_relation():
-            self.__build_and_show_relation(long_title, relation, short_title)
-
-        self.presenter.make_button(row, column, build_and_show_relation, short_title)
-
-    def __build_and_show_relation(self, title, relations, relation_table_name):
-        self.presenter.create_new_window(title)
-        self.presenter.fill_cell_values(self, relations, relation_table_name)
-
-    def initialize_and_save_father_in_law_of_relation(self):
-        def build_and_show_relation():
-            self.presenter.create_new_window("father-in-law relation (Тесть)")
-            self.presenter.fill_cell_values(self, self.us.R_relations, "Relation R")
-
-        self.presenter.make_button(self.root_relation_controller, row, column, build_and_show_relation, short_title)
-
-        self.initialize_relation(3, 2, "father-in-law relation (Тесть)", self.us.R_relations, "Relation R")

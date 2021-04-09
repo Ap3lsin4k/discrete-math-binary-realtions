@@ -7,7 +7,8 @@ from core.entity_two_groups import TwoGroupsOfPersons
 from core.user_story import UserStory
 from inputoutput.repository import load_names_for_two_groups
 from inputoutput.window_with_basic_relations import WindowWithBasicRelations
-from presentation.presenter import Presenter, BasicPresenter
+from presentation.presenter import Presenter
+from presentation.basic_presenter import BasicPresenter
 
 relation_S_plus_R = []
 
@@ -24,8 +25,6 @@ def create_window_3_facade():
                         people=names.cast_to_persons(), presenter=presenter)
     us.generate_relations()
     us.execute()
-
-
     pickle_dump(us)
 
 
