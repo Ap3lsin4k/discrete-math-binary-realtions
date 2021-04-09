@@ -1,6 +1,6 @@
 from tkinter import Toplevel, Label, W, E, N, S, Listbox, EXTENDED, END
 
-from inputoutput.relations_window import RelationsWindow, make_button
+from inputoutput.relations_window import RelationsWindow
 
 
 class WindowWithBasicRelations(RelationsWindow):

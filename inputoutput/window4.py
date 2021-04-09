@@ -1,15 +1,9 @@
 import pickle
-from tkinter import *
-from tkinter import messagebox
-import random
-import copy
-import deprecated_operations_on_binary_relations_controller
+
 from core import binary_relation_generator
 from core.complex_user_story import ComplexUserStory
-from core.user_story import UserStory
 from inputoutput.window_with_complex_relations import WindowWithComplexRelations
 from presentation.complex_presenter import ComplexPresenter
-from presentation.presenter import Presenter
 
 
 def create_window_4():

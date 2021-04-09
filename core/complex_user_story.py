@@ -30,4 +30,8 @@ class ComplexUserStory(UserStory):
         self.presenter.present_U_diff_R_relation(self.two_groups.R_complement())
 
     def execute(self):
+        self.presenter.present_R_unioun_S_relation(self.union())
+        self.presenter.present_R_intersection_S_relation(self.intersection())
+        self.presenter.present_R_difference_S_relation(self.difference())
         self.presenter.present_U_diff_R_relation(self.two_groups.R_complement())
+        self.presenter.present_inverse_of_S(None)
