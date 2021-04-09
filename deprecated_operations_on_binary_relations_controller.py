@@ -2,40 +2,18 @@ import pickle
 from tkinter import *
 
 from core import binary_relation_generator
-from core.entity_two_groups import TwoGroupsOfPersons, TwoGroups
 from core.user_story import UserStory
 from inputoutput import window3
-
-with open(r"../inputoutput/Relation R.txt", "r", encoding="UTF-8") as f:
-    relation_R = f.read()
-with open(r"../inputoutput/Relation S.txt", "r", encoding="UTF-8") as f:
-    relation_S = f.read()
-
-f1 = open(r"../inputoutput/Set A.txt", "r", encoding="UTF-8")
-set_A = f1.read().split(" ")
-f2 = open(r"../inputoutput/Set B.txt", "r", encoding="UTF-8")
-set_B = f2.read().split(" ")
+from inputoutput.window_with_complex_relations import WindowWithComplexRelations
+from presentation.presenter import Presenter
 
 
 def R_or_S():
 
     UserStory(relation_generator=binary_relation_generator,
               people=people_names)
-    all1 = []
-    for i in set_A[:-1]:
-        for j in set_B[:-1]:
-            p = i, j
-            all1.append(p)
 
-    score = []
-    for i in all1:
-        if i in window3.relation_S_plus_R:
-            score.append(1)
-        else:
-            score.append(0)
 
-    r1 = len(set_A[:-1])
-    c1 = len(set_B[:-1])
     calc, top = ui_R_or_S()
     z = 1
     f = 1
@@ -140,17 +118,8 @@ def R_diff_S():
 
 
 def U_diff_R():
-    groups = pickle.load(open("../TwoGroups.pickle", "rb"))
-        #TwoGroupsOfPersons(persons.A_persons, persons.B_persons, us.S_relations, us.R_relations)
 
-    print(groups.R_complement())
-    r1 = len(set_A[:-1])
-    c1 = len(set_B[:-1])
-    top = Toplevel(height=500, width=100, relief=GROOVE)
-    top.title("U \ R")
-    calc = 0
-    lab3 = Label(top, text="U \ R", font='arial 14')
-    lab3.grid(row=0, column=0)
+
     z = 1
     f = 1
     for m in list(set_A[:-1]):

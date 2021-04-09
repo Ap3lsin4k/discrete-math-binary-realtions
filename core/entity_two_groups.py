@@ -8,7 +8,7 @@ class TwoGroups:
     A_names: set
     B_names: set
 
-    def __init__(self, left_handed, right_handed):
+    def __init__(self, left_handed: set, right_handed: set):
         self.A_names = left_handed
         self.B_names = right_handed
 
@@ -31,3 +31,8 @@ class TwoGroupsOfPersons:
     def R_complement(self):
         U = bin_relation.generate_all_possible_relations(self.A_persons, self.B_persons)
         return U.difference(self.father_in_law_of_relation) #\R
+
+    def cast_to_names(self):
+        self.A_names = [x for x in self.A_persons]
+        self.B_names = [x for x in self.B_persons]
+        return self

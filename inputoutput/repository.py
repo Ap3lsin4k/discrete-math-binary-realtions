@@ -1,11 +1,11 @@
 from core.entity_two_groups import TwoGroups
 
 
-def load_saved_sets():
-    f1 = open(r"Set A.txt", "r", encoding="UTF-8")
+def load_names_for_two_groups():
+    f1 = open(r"../inputoutput/Set A.txt", "r", encoding="UTF-8")
     set_A_names = f1.read().split(" ")
     set_A_names = set_A_names[:-1]  # remove '' after split
-    f2 = open(r"Set B.txt", "r", encoding="UTF-8")
+    f2 = open(r"../inputoutput/Set B.txt", "r", encoding="UTF-8")
     set_B_people = f2.read().split(" ")
     set_B_people = set_B_people[:-1]
 

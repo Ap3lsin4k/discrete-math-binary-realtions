@@ -1,25 +1,32 @@
+import pickle
 from tkinter import END
 
-from inputoutput.repository import load_saved_sets
-from inputoutput.ui import initialize_ui
-from inputoutput.ui_window3 import UI
+from core import binary_relation_generator
+from core.entity_two_groups import TwoGroupsOfPersons
+from core.user_story import UserStory
+from inputoutput.repository import load_names_for_two_groups
+from inputoutput.ui_window3 import WindowWithBasicRelations
+from presentation.presenter import Presenter
 
 relation_S_plus_R = []
 
 
-def create_window_3():
+def create_window_3_facade():
 
-    listbox1, listbox2, window3 = initialize_ui()
-    ppl = load_saved_sets()
+    names = load_names_for_two_groups()
 
-    for i in ppl.A_names:
-        listbox1.insert(END, i)
-    for i in ppl.B_names:
-        listbox2.insert(END, i)
+    presenter = Presenter(names)
+    us = UserStory(relation_generator=binary_relation_generator,
+                        people=names.cast_to_persons())
+    us.generate_relations()
+    pickle_dump(us)
+    myui = WindowWithBasicRelations(presenter, user_story=us)
+    myui.initialize(names)
 
-    myui = UI(ppl)
-    myui.initialize_and_save_husband_of_relation(window3)
-    myui.initialize_and_save_father_in_law_of_relation(window3)
+
+def pickle_dump(us):
+    all_people = TwoGroupsOfPersons(us.one_set, us.another_set, us.S_relations, us.R_relations)
+    pickle.dump(all_people, open("../TwoGroups.pickle", "wb"))
 
 
 

@@ -43,7 +43,7 @@ root.config(menu=m)
 fm = Menu(m)
 m.add_cascade(label="Windows", menu=fm)
 fm.add_command(label="Window№2", command=window2.create_window_2)
-fm.add_command(label="Window№3", command=window3.create_window_3)
+fm.add_command(label="Window№3", command=window3.create_window_3_facade)
 fm.add_command(label="Window№4", command=window4.create_window_4)
 
 '''

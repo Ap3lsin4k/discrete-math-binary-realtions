@@ -1,16 +1,33 @@
 import pytest
 
+from core import binary_relation_generator
 from core.entity import Person
 from core.entity_two_groups import TwoGroups
+from core.user_story import UserStory
 from presentation.presenter import convert_to_matrix
-from inputoutput.ui_window3 import UI
+from inputoutput.ui_window3 import WindowWithBasicRelations
 
 
-def test_ui(male, male1, male2, male3, female, female1, female2, female3):
-    ui = UI(TwoGroups(["Michael"], ["Mike"]))
+def test_ui_intergration_with_us(male, male1, male2, male3, female, female1, female2, female3):
+    us = UserStory(binary_relation_generator,
+              TwoGroups(["Michael"], ["Mike"]).cast_to_persons())
+    us.generate_relations()
+    ui = WindowWithBasicRelations(None, us)
+
     assert ui.us.R_relations
     assert len(ui.us.R_relations) == 1
     assert len(ui.us.S_relations) == 0
+
+
+def test_controller_intergration_with_us(male, male1, male2, male3, female, female1, female2, female3):
+    us = UserStory(binary_relation_generator,
+              TwoGroups(["Michael"], ["Mike"]).cast_to_persons())
+    us.generate_relations()
+
+    assert us.R_relations
+    assert len(us.R_relations) == 1
+    assert len(us.S_relations) == 0
+
 
 
 def test_convert_relation_to_matrix(male, female, male1, male2, female2):
